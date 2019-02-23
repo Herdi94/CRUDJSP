@@ -52,20 +52,27 @@
     String cifid =request.getParameter("cifid");
     MstCifpersnlDAO mstCifpersnlDAO = new MstCifpersnlDAOimpl();
     MstCifpersnl u = mstCifpersnlDAO.getMstCifpersnl(cifid);
+
 %>
 
 
-<form id="form-group" class="garis_tepi_luar" action="#" method="post">
+<form id="form-group" class="garis_tepi_luar" action="EditSaveMst.jsp" method="post">
     <!-- Pembukaan Nasabah (CIF) Perorangan -->
     <font color="#663399">Pembukaan Nasabah (CIF) Perorangan</font>
     <div class="garis_tepi_dalam">
         <div>
             <label>No CIF</label>
-            <input type="text" name="cifid" value="<%=u.getCifid()%>"> *
+            <input type="text" name="cifid" value="<%=u.getCifid()%>" readonly="readonly"> *
 
-            <input type="checkbox" name="flgrelated">
+            <c:choose>
+                <c:when test="<%=u.getFlgrelated()==1%>">
+                    <input type="checkbox" name="flgrelated" value="1" <%= u.getFlgrelated() == 1 ? "checked":""%> >
+                </c:when>
+                <c:otherwise>
+                    <input type="hidden" name="flgrelated" value="2" <%= u.getFlgrelated() == 1 ? "checked":""%>>
+                </c:otherwise>
+            </c:choose>
             Terkait Bank
-
             <div class="box-right">
                 <div>
                     <label>Tgl Pembukaan</label> <input type="date" name="dtjoin" value="<%=u.getDtjoin()%>"> *
@@ -76,14 +83,14 @@
         <div>
             <label>Cabang</label>
             <select name="cabang">
-                <option selected disabled value="001 - CABANG UTAMA">001 - CABANG UTAMA</option>
+                <option selected value="001 - CABANG UTAMA">001 - CABANG UTAMA</option>
             </select>
         </div>
         <div>
             <label>Account Officer</label>
             <select name="aoid">
                 <option value="#">-- Pilih Account Officer --</option>
-                <option value="98787231">98787231</option>
+                <option value="98787231" <%=u.getAoid().equals("98787231") ? "selected":""%>  >98787231</option>
             </select> *
         </div>
         <div>
@@ -107,8 +114,8 @@
         </div>
         <div>
             <label>Jenis Kelamin</label>
-            <input type="radio" name="sex" value="1"> Laki-laki
-            <input type="radio" value="0" name="sex"> Perempuan
+            <input type="radio" name="sex" value="1" <%= u.getSex() == 1 ? "checked":""%> > Laki-laki
+            <input type="radio" value="0" name="sex"<%= u.getSex() == 0 ? "checked":""%> > Perempuan
         </div>
         <div>
             <label>Tempat & Tgl Lahir</label>
@@ -124,9 +131,9 @@
         <div>
             <label>Jenis Identitas</label>
             <select name="typeid">
-                <option value="K">1 - KTP</option>
-                <option value="S">2 - SIM</option>
-                <option value="P">3 - PASSPORT</option>
+                <option value="K" <%=u.getTypeid().equals("K") ? "selected":""%>>1 - KTP</option>
+                <option value="S" <%=u.getTypeid().equals("S") ? "selected":""%>>2 - SIM</option>
+                <option value="P" <%=u.getTypeid().equals("P") ? "selected":""%>>3 - PASSPORT</option>
             </select> *
             <div class="box-right">
                 <div>
@@ -167,17 +174,17 @@
             <label>Propinsi</label>
             <select name="provid">
                 <option value="#">-- Pilih Provinsi --</option>
-                <option value="J1">Jawa Barat</option>
-                <option value="J2">Jawa Tengah</option>
-                <option value="J3">Jawa Timur</option>
+                <option value="J1" <%=u.getProvid().equals("J1") ? "selected":""%>>Jawa Barat</option>
+                <option value="J2" <%=u.getProvid().equals("J2") ? "selected":""%>>Jawa Tengah</option>
+                <option value="J3" <%=u.getProvid().equals("J3") ? "selected":""%>>Jawa Timur</option>
             </select> *
             <div class="box-right">
                 <div>
                     <label>Kabupaten/Kota</label>
                     <select name="cityid">
                         <option value="#">-- Pilih Kabupaten/Kota --</option>
-                        <option value="K01">Kabupaten</option>
-                        <option value="K02">Kota</option>
+                        <option value="K01" <%=u.getCityid().equals("K01") ? "selected":""%>>Kabupaten</option>
+                        <option value="K02" <%=u.getCityid().equals("K02") ? "selected":""%>>Kota</option>
                     </select> *
                 </div>
             </div>
@@ -212,7 +219,6 @@
     <!--start btn -->
     <div class="box-btn">
         <button type="submit">Simpan</button>
-        <button type="reset">Reset</button>
     </div>
     <!--end btn -->
 

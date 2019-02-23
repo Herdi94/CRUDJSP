@@ -56,7 +56,7 @@
             <div>
                 <label>No CIF</label>
                 <input type="text" name="cifid"> *
-
+                <input type="hidden" name="flgrelated" value="2">
                 <input type="checkbox" name="flgrelated" value="0">
                 Terkait Bank
 

@@ -3,6 +3,8 @@
 <%@ page import="daoimpl.MstCifpersnlDAOimpl" %>
 <%@ page import="dao.MstCifDAO" %>
 <%@ page import="daoimpl.MstCifDAOImpl" %>
+<%@ page import="entity.MstCif" %>
+<%@ page import="entity.MstCifpersnl" %>
 
 <jsp:useBean id="u" class="entity.MstCif"></jsp:useBean>
 <jsp:setProperty name="u" property="*"></jsp:setProperty>
@@ -13,21 +15,22 @@
 
 <%
 
-   /* MstCif mstCif = new MstCif();
-    mstCif.setCifid("JFDDE10");
+    MstCif mstCif = new MstCif();
+/*    mstCif.setCifid("JFDDE10");
     mstCif.setAoid("98787231");
+    mstCif.setDtjoin("2019-02-27");
     mstCif.setCountryid("ID");
     mstCif.setFlgrelated(0);
     mstCif.setFullnm("Jaka Zulfiqri");
-    mstCif.setNpwp("567345234");
-*/
+    mstCif.setNpwp("567345234");*/
+
 
     MstCifDAO mstCifDAO = new MstCifDAOImpl();
     mstCifDAO.tambahMstCif(u);
 
 
-    /*MstCifpersnl mstCifpersnl = new MstCifpersnl();
-    mstCifpersnl.setCifid("66666");
+    MstCifpersnl mstCifpersnl = new MstCifpersnl();
+    /*mstCifpersnl.setCifid("JFDDE10");
     mstCifpersnl.setAoid("llllllll");
     mstCifpersnl.setFullnm("Jacky Chan");
     mstCifpersnl.setSurenm("Jacky");
